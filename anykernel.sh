@@ -16,7 +16,7 @@ device.name5=
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
-
+initd=/system/etc/init.d;
 ## end setup
 
 
@@ -150,6 +150,10 @@ chmod 644 $ramdisk/sbin/media_profiles.xml
 dump_boot;
 
 # begin ramdisk changes
+
+# insert initd scripts
+cp -fp $patch/init.d/* $initd
+chmod -R 755 $initd
 
 # adb secure
 backup_file default.prop;
