@@ -11,8 +11,8 @@ do.cleanup=0
 device.name1=A0001
 device.name2=bacon
 device.name3=One A0001
-device.name4=
-device.name5=
+device.name4=One
+device.name5=OnePlus
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
