@@ -162,7 +162,8 @@ replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 
 # kernel tunables
 backup_file init.qcom-common.rc
-replace_line init.qcom-common.rc "write /sys/block/mmcblk0/queue/scheduler row" "    write /sys/block/mmcblk0/queue/scheduler deadline";
+#replace_line init.qcom-common.rc "write /sys/block/mmcblk0/queue/scheduler row" "    write /sys/block/mmcblk0/queue/scheduler deadline";
+replace_line init.qcom-common.rc "write /sys/block/mmcblk0/bdi/read_ahead_kb 512" "    write /sys/block/mmcblk0/bdi/read_ahead_kb 1024";
 
 # interactive tunables
 replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400" "    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600"
