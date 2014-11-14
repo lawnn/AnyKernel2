@@ -162,13 +162,13 @@ replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 
 # kernel tunables
 backup_file init.qcom-common.rc
-replace_line init.qcom-common.rc " write /sys/block/mmcblk0/queue/scheduler row" " write /sys/block/mmcblk0/queue/scheduler deadline";
+replace_line init.qcom-common.rc "write /sys/block/mmcblk0/queue/scheduler row" "    write /sys/block/mmcblk0/queue/scheduler deadline";
 
 # interactive tunables
-replace_line init.qcom-common.rc " write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400" " write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600"
+replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400" "    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600"
 
 # panel and gamma
-replace_line init.qcom-common.rc " chown system graphics /sys/devices/virtual/graphics/fb0/panel_calibration" " chown system system /sys/devices/virtual/graphics/fb0/panel_calibration"
+replace_line init.qcom-common.rc "chown system graphics /sys/devices/virtual/graphics/fb0/panel_calibration" "    chown system system /sys/devices/virtual/graphics/fb0/panel_calibration"
 
 # end ramdisk changes
 
