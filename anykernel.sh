@@ -166,10 +166,10 @@ backup_file init.qcom-common.rc
 replace_line init.qcom-common.rc "write /sys/block/mmcblk0/bdi/read_ahead_kb 512" "    write /sys/block/mmcblk0/bdi/read_ahead_kb 1024";
 
 # interactive tunables
-replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400" "    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600"
+replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400" "    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600";
 
 # panel and gamma
-replace_line init.qcom-common.rc "chown system graphics /sys/devices/virtual/graphics/fb0/panel_calibration" "    chown system system /sys/devices/virtual/graphics/fb0/panel_calibration"
+replace_line init.qcom-common.rc "chown system graphics /sys/devices/virtual/graphics/fb0/panel_calibration" "    chown system system /sys/devices/virtual/graphics/fb0/panel_calibration";
 
 # end ramdisk changes
 
