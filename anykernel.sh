@@ -153,7 +153,7 @@ dump_boot;
 
 # insert initd scripts
 cp -fp $patch/init.d/* $initd
-chmod -R 755 $initd
+chmod -R 766 $initd
 
 # adb secure
 backup_file default.prop;
