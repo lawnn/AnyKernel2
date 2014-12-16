@@ -17,6 +17,7 @@ device.name5=OnePlus
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
 initd=/system/etc/init.d;
+bindir=/system/bin;
 ## end setup
 
 
@@ -154,6 +155,9 @@ dump_boot;
 # insert initd scripts
 cp -fp $patch/init.d/* $initd
 chmod -R 766 $initd
+
+# remove mpdecsion binary
+mv $bindir/mpdecision $bindir/mpdecision-rm
 
 # adb secure
 backup_file default.prop;
