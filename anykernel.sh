@@ -175,7 +175,7 @@ replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interact
 
 # cpu-boost tunables
 replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/boost_ms 20" "    write /sys/module/cpu_boost/parameters/boost_ms 40";
-replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/sync_threshold 1728000" "    write /sys/module/cpu_boost/parameters/sync_threshold 1958000";
+replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/sync_threshold 1728000" "    write /sys/module/cpu_boost/parameters/sync_threshold 1958400";
 replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/input_boost_freq 1497600" "    write /sys/module/cpu_boost/parameters/input_boost_freq 1728000";
 replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/input_boost_ms 40" "    write /sys/module/cpu_boost/parameters/input_boost_ms 80";
 
