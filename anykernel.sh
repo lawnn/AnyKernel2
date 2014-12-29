@@ -49,7 +49,7 @@ dump_boot() {
 # repack ramdisk then build and write image
 write_boot() {
   cd $split_img;
-  cmdline=`cat *-cmdline`;
+  cmdline="console=ttyHSL0,115200,n8 androidboot.hardware=bacon user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 no_console_suspend=1";
   board=`cat *-board`;
   base=`cat *-base`;
   pagesize=`cat *-pagesize`;
