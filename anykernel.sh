@@ -182,6 +182,11 @@ replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/input_b
 # panel and gamma
 replace_line init.qcom-common.rc "chown system graphics /sys/devices/virtual/graphics/fb0/panel_calibration" "    chown system system /sys/devices/virtual/graphics/fb0/panel_calibration";
 
+# add frandom compatibility
+backup_file ueventd.rc;
+insert_line ueventd.rc "frandom" after "urandom" "/dev/frandom              0666   root       root\n";
+insert_line ueventd.rc "erandom" after "urandom" "/dev/erandom              0666   root       root\n";
+
 # end ramdisk changes
 
 write_boot;
