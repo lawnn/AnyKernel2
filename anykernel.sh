@@ -171,6 +171,7 @@ backup_file init.qcom-common.rc
 # interactive tunables
 replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 90" "    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 70";
 replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400" "    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1728000";
+replace_line init.qcom-common.rc "write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600" "    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1728000";
 
 # cpu-boost tunables
 #replace_line init.qcom-common.rc "write /sys/module/cpu_boost/parameters/boost_ms 20" "    write /sys/module/cpu_boost/parameters/boost_ms 60";
