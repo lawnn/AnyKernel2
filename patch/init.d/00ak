@@ -16,11 +16,11 @@ echo "0" > /sys/module/xt_qtaguid/parameters/debug_mask;
 echo "[ak kernel] disable debug mask" | tee /dev/kmsg
 
 # tuning interactive governor
-#echo "70" > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-#echo "1728000" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#echo "1" > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-#echo "40000" > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-#echo "[ak kernel] tuning interactive governor" | tee /dev/kmsg
+echo "70" > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+echo "1728000" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+echo "1" > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+echo "40000" > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+echo "[ak kernel] tuning interactive governor" | tee /dev/kmsg
 
 # set min/max freqs after boot
 minfreq="300000"
