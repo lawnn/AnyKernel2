@@ -35,3 +35,14 @@ echo "$maxfreq" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
 echo "$maxfreq" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
 echo "$maxfreq" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
 echo "[ak kernel] set min-max freqs after boot" | tee /dev/kmsg
+
+# kcal sgs amoled settings
+echo "256 256 256" > /sys/devices/platform/kcal_ctrl.0/kcal
+echo "35" > /sys/devices/platform/kcal_ctrl.0/kcal_min
+echo "1" > /sys/devices/platform/kcal_ctrl.0/kcal_enable
+echo "0" > /sys/devices/platform/kcal_ctrl.0/kcal_invert
+echo "275" > /sys/devices/platform/kcal_ctrl.0/kcal_sat
+echo "0" > /sys/devices/platform/kcal_ctrl.0/kcal_hue
+echo "251" > /sys/devices/platform/kcal_ctrl.0/kcal_val
+echo "258" > /sys/devices/platform/kcal_ctrl.0/kcal_cont
+echo "[ak kernel] kcal sgs amoled settings done" | tee /dev/kmsg
