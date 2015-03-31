@@ -43,6 +43,13 @@ echo 5 > /proc/sys/vm/dirty_background_ratio
 echo 10 > /proc/sys/vm/swappiness
 
 ############################
+# ZRAM Settings
+#
+echo "lzo [lz4]" > /sys/block/zram0/comp_algorithm
+echo 3 > /sys/block/zram0/max_comp_stream
+echo 300 > /sys/devices/virtual/block/zram0/disksize
+
+############################
 # Power Effecient Workqueues (Enable for battery)
 #
 echo 1 > /sys/module/workqueue/parameters/power_efficient
