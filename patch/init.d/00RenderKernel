@@ -29,12 +29,6 @@ echo 1 > /sys/module/cpu_boost/parameters/hotplug_boost
 echo 1 > /sys/module/cpu_boost/parameters/wakeup_boost
 
 ############################
-# LMK Tweaks
-#
-#echo 2560,4096,8192,16384,24576,32768 > /sys/module/lowmemorykiller/parameters/minfree
-#echo 32 > /sys/module/lowmemorykiller/parameters/cost
-
-############################
 # Tweak Background Writeout
 #
 echo 200 > /proc/sys/vm/dirty_expire_centisecs
@@ -45,9 +39,9 @@ echo 10 > /proc/sys/vm/swappiness
 ############################
 # ZRAM Settings
 #
-echo "lzo [lz4]" > /sys/block/zram0/comp_algorithm
-echo 3 > /sys/block/zram0/max_comp_stream
-echo 300 > /sys/devices/virtual/block/zram0/disksize
+#echo "lzo [lz4]" > /sys/block/zram0/comp_algorithm
+#echo 3 > /sys/block/zram0/max_comp_stream
+#echo 300 > /sys/devices/virtual/block/zram0/disksize
 
 ############################
 # Power Effecient Workqueues (Enable for battery)
@@ -115,6 +109,12 @@ echo 30000 > /sys/devices/system/cpu/cpufreq/impulse/timer_rate
 echo 100000 > /sys/devices/system/cpu/cpufreq/impulse/max_freq_hysteresis
 echo 30000 > /sys/devices/system/cpu/cpufreq/impulse/timer_slack
 echo 1 > /sys/devices/system/cpu/cpufreq/impulse/powersave_bias
+
+############################
+# LMK Tweaks
+#
+echo 2560,4096,8192,16384,24576,32768 > /sys/module/lowmemorykiller/parameters/minfree
+echo 32 > /sys/module/lowmemorykiller/parameters/cost
 
 ############################
 # Disable Debugging
