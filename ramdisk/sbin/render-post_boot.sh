@@ -1,11 +1,12 @@
 #!/system/bin/sh
 
-BB=/sbin/busybox
+BB=/sbin/bb/busybox
 
 ############################
 # Custom Kernel Settings for Render Kernel!!
 #
 stop mpdecision
+echo "[Render-Kernel] Boot Script Started" | tee /dev/kmsg
 
 ############################
 # MSM_Hotplug Settings
@@ -51,21 +52,21 @@ echo 1 > /sys/module/workqueue/parameters/power_efficient
 ############################
 # MSM Limiter
 #
-echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_0
-echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_1
-echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_2
-echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_3
-echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_0
-echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_1
-echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_2
-echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_3
-echo 1728000 > /sys/kernel/msm_limiter/suspend_max_freq
+echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_0
+echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_1
+echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_2
+echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_3
+echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_0
+echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_1
+echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_2
+echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_3
+echo 1267200 > /sys/kernel/msm_limiter/suspend_max_freq
 
 ############################
 # Scheduler and Read Ahead
 #
 echo zen > /sys/block/mmcblk0/queue/scheduler
-echo 2048 > /sys/block/mmcblk0/bdi/read_ahead_kb
+echo 1024 > /sys/block/mmcblk0/bdi/read_ahead_kb
 
 ############################
 # GPU Governor
@@ -98,7 +99,7 @@ echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
 echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
 echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_slack
 
-echo impulse > /sys/kernel/msm_limiter/scaling_governor_0 
+echo impulse > /sys/kernel/msm_limiter/scaling_governor_0
 echo 20000 1400000:40000 1700000:20000 > /sys/devices/system/cpu/cpufreq/impulse/above_hispeed_delay
 echo 95 > /sys/devices/system/cpu/cpufreq/impulse/go_hispeed_load
 echo 1190400 > /sys/devices/system/cpu/cpufreq/impulse/hispeed_freq
@@ -109,6 +110,15 @@ echo 30000 > /sys/devices/system/cpu/cpufreq/impulse/timer_rate
 echo 100000 > /sys/devices/system/cpu/cpufreq/impulse/max_freq_hysteresis
 echo 30000 > /sys/devices/system/cpu/cpufreq/impulse/timer_slack
 echo 1 > /sys/devices/system/cpu/cpufreq/impulse/powersave_bias
+
+echo smartmax > /sys/kernel/msm_limiter/scaling_governor_0
+echo smartmax > /sys/kernel/msm_limiter/scaling_governor_1
+echo smartmax > /sys/kernel/msm_limiter/scaling_governor_2
+echo smartmax > /sys/kernel/msm_limiter/scaling_governor_3
+echo 499200 > /sys/devices/system/cpu/cpufreq/smartmax/suspend_ideal_freq
+echo 1267200 > /sys/devices/system/cpu/cpufreq/smartmax/touch_poke_freq
+echo 146400 > /sys/devices/system/cpu/cpufreq/smartmax/awake_ideal_freq
+echo 1267200 > /sys/devices/system/cpu/cpufreq/smartmax/boost_freq
 
 ############################
 # LMK Tweaks
@@ -146,3 +156,6 @@ INITD_DIR=/system/etc/init.d
 rm -rf $INITD_DIR/01mpdecision
 rm -rf $INITD_DIR/00ak
 rm -rf $INITD_DIR/00tgm
+rm -rf $INITD_DIR/00RenderKernel
+
+echo "[Render-Kernel] Boot Script Completed!" | tee /dev/kmsg
