@@ -148,14 +148,4 @@ echo "251" > /sys/devices/platform/kcal_ctrl.0/kcal_val
 echo "258" > /sys/devices/platform/kcal_ctrl.0/kcal_cont
 echo "[Render-Kernel] kcal sgs amoled settings done" | tee /dev/kmsg
 
-############################
-# Clean up!
-#
-INITD_DIR=/system/etc/init.d
-
-rm -rf $INITD_DIR/01mpdecision
-rm -rf $INITD_DIR/00ak
-rm -rf $INITD_DIR/00tgm
-rm -rf $INITD_DIR/00RenderKernel
-
 echo "[Render-Kernel] Boot Script Completed!" | tee /dev/kmsg
