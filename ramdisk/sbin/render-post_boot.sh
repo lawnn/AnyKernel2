@@ -56,10 +56,10 @@ echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_0
 echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_1
 echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_2
 echo 146400 > /sys/kernel/msm_limiter/suspend_min_freq_3
-echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_0
-echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_1
-echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_2
-echo 2726400 > /sys/kernel/msm_limiter/resume_max_freq_3
+echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_0
+echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_1
+echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_2
+echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_3
 echo 1267200 > /sys/kernel/msm_limiter/suspend_max_freq
 
 ############################
