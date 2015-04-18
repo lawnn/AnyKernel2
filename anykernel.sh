@@ -180,6 +180,10 @@ backup_file file_contexts;
 insert_line file_contexts "frandom" after "urandom" "/dev/frandom				u:object_r:frandom_device:s0\n";
 insert_line file_contexts "erandom" after "urandom" "/dev/erandom				u:object_r:erandom_device:s0\n";
 
+# Add F2FS Support for /data and /cache since its can be used on ANY rom
+backup_file fstab.bacon
+replace_file fstab.bacon 750 fstab.bacon;
+
 # xPrivacy
 # Thanks to @Shadowghoster & @@laufersteppenwolf
 param=$(grep "xprivacy" service_contexts)
