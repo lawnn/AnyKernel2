@@ -1,0 +1,24 @@
+assert(getprop("ro.product.device") == "l01f" || getprop("ro.build.product") == "l01f" || 
+       getprop("ro.product.device") == "d802" || getprop("ro.build.product") == "d802" || 
+       getprop("ro.product.device") == "g2" || getprop("ro.build.product") == "g2" || 
+       getprop("ro.product.device") == "galbi" || getprop("ro.build.product") == "galbi" ||
+       abort("This package is for \"l01f,d802,g2,galbi\" devices; this is a \"" + getprop("ro.product.device") + "\"."););
+
+package_extract_file("boot.img", "/tmp/boot.img");
+package_extract_dir("flash_boot", "/tmp/flash_boot");
+set_perm_recursive(0, 0, 0755, 0755, "/tmp/flash_boot");
+assert(run_program("/sbin/busybox", "sh", "/tmp/flash_boot/flashimg.sh", "-zimage_only", "/dev/block/platform/msm_sdcc.1/by-name/boot", "/dev/block/platform/msm_sdcc.1/by-name/aboot") == 0);
+delete_recursive("/tmp/flash_boot");
+delete("/tmp/boot.img");
+
+mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system");
+
+package_extract_dir("system", "/system");
+set_metadata_recursive("/system/lib/modules", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+
+package_extract_file("conversion.sh", "/tmp/conversion.sh");
+set_perm(0, 0, 0755, "/tmp/conversion.sh");
+run_program("/sbin/busybox", "sh", "/tmp/conversion.sh");
+delete("/tmp/conversion.sh");
+
+unmount("/system");
