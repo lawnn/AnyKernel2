@@ -1,18 +1,19 @@
 # AnyKernel 2.0 Ramdisk Mod Script 
 # osm0sis @ xda-developers
+# modified by RenderBroken for the G2!
 
 ## AnyKernel setup
 # EDIFY properties
 kernel.string=Render Kernel by RenderBroken!
-do.devicecheck=1
+do.devicecheck=0
 do.initd=1
 do.modules=1
 do.cleanup=0
-device.name1=A0001
-device.name2=bacon
-device.name3=One A0001
-device.name4=One
-device.name5=OnePlus
+device.name1=
+device.name2=
+device.name3=
+device.name4=
+device.name5=
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
@@ -24,13 +25,14 @@ bindir=/system/bin;
 ## AnyKernel methods (DO NOT CHANGE)
 # set up extracted files and directories
 ramdisk=/tmp/anykernel/ramdisk;
+ramdisk-new=/tmp/anykernel/ramdisk-new;
 bin=/tmp/anykernel/tools;
 split_img=/tmp/anykernel/split_img;
 patch=/tmp/anykernel/patch;
 
 chmod -R 755 $bin;
-mkdir -p $ramdisk $split_img;
-cd $ramdisk;
+mkdir -p $ramdisk $ramdisk-new $split_img;
+cd $ramdisk-new;
 
 OUTFD=`ps | grep -v "grep" | grep -oE "update(.*)" | cut -d" " -f3`;
 ui_print() { echo "ui_print $1" >&$OUTFD; echo "ui_print" >&$OUTFD; }
@@ -68,13 +70,16 @@ write_boot() {
     dtb=`ls *-dtb`;
     dtb="--dt $split_img/$dtb";
   fi;
-  cd $ramdisk;
+  cp -rf $ramdisk/* $ramdisk-new;
+  cd $ramdisk-new;
   find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
-  $bin/mkbootimg --kernel /tmp/anykernel/zImage --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz $second --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb --output /tmp/anykernel/boot-new.img;
+  $bin/mkbootimg --kernel /tmp/anykernel/zImage --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz $second --cmdline "$cmdline androidboot.selinux=permissive" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb --output /tmp/anykernel/boot-new.img;
   if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
     ui_print " "; ui_print "Repacking image failed. Aborting...";
     echo 1 > /tmp/anykernel/exitcode; exit;
   fi;
+# Bump that ish!
+  dd if=$bin/bump >> /tmp/anykernel/boot-new.img;
   dd if=/tmp/anykernel/boot-new.img of=$block;
 }
 
@@ -143,7 +148,7 @@ replace_file() {
 
 ## AnyKernel permissions
 # set permissions for included files
-chmod -R 755 $ramdisk
+chmod -R 755 $ramdisk-new
 #chmod 644 $ramdisk/sbin/media_profiles.xml
 
 ## AnyKernel install
@@ -153,7 +158,7 @@ dump_boot;
 
 # insert initd scripts
 cp -fp $patch/init.d/* $initd
-chmod -R 766 $initd
+chmod -R 755 $initd
 
 # remove mpdecsion binary
 mv $bindir/mpdecision $bindir/mpdecision-rm
@@ -163,33 +168,9 @@ backup_file default.prop;
 replace_string default.prop "ro.adb.secure=0" "ro.adb.secure=1" "ro.adb.secure=0";
 replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 
-# init.bacon.rc
-backup_file init.bacon.rc;
-append_file init.bacon.rc "render-post_boot" init.bacon.patch;
-
-# panel and gamma
-backup_file init.qcom-common.rc
-replace_line init.qcom-common.rc "chown system graphics /sys/devices/virtual/graphics/fb0/panel_calibration" "    chown system system /sys/devices/virtual/graphics/fb0/panel_calibration";
-
-# add frandom compatibility
-backup_file ueventd.rc;
-insert_line ueventd.rc "frandom" after "urandom" "/dev/frandom              0666   root       root\n";
-insert_line ueventd.rc "erandom" after "urandom" "/dev/erandom              0666   root       root\n";
-
-backup_file file_contexts;
-insert_line file_contexts "frandom" after "urandom" "/dev/frandom				u:object_r:frandom_device:s0\n";
-insert_line file_contexts "erandom" after "urandom" "/dev/erandom				u:object_r:erandom_device:s0\n";
-
-# Add F2FS Support for /data and /cache since its can be used on ANY rom
-backup_file fstab.bacon
-replace_file fstab.bacon 750 fstab.bacon;
-
-# xPrivacy
-# Thanks to @Shadowghoster & @@laufersteppenwolf
-param=$(grep "xprivacy" service_contexts)
-if [ -z $param ]; then
-    echo -ne "xprivacy453                               u:object_r:system_server_service:s0\n" >> service_contexts
-fi
+# init.g2.rc
+backup_file init.g2.rc;
+append_file init.g2.rc "render-post_boot" init.g2.patch;
 
 # end ramdisk changes
 
