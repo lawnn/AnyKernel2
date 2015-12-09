@@ -1,13 +1,13 @@
 show_progress(1.34, 4);
 ui_print(" ");
-ui_print(" ---------------------------------");
-ui_print("    _____                         ");
-ui_print("   (, /  |              /)   ,    ");
-ui_print("     /---| __   _   __ (/_     __ ");
-ui_print("  ) /    |_/ (_(_(_/ (_/(___(_(_(_");
-ui_print(" ( /                              ");
-ui_print(" _/                               ");
-ui_print(" -------- OnePlusOne Kernel ------");
+ui_print(" -----------------------------------");
+ui_print("                                    ");
+ui_print("                 \                  ");
+ui_print("                 /\                 ");
+ui_print("                /  \                ");
+ui_print("               /    \               ");
+ui_print("                                    ");
+ui_print(" ----------- ~ Kernel ~ ------------");
 ui_print(" ");
 assert(package_extract_dir("", "/tmp/anykernel"));
 ui_print(file_getprop("/tmp/anykernel/anykernel.sh", "kernel.string"));
@@ -35,7 +35,7 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.initd") == 1,
 ui_print("Installing kernel...");
 ui_print(" ");
 run_program("/sbin/sh", "/tmp/anykernel/anykernel.sh");
-ifelse(run_program("/sbin/sh", "-c", "test `cat /tmp/anykernel/exitcode` == 1") == 0, 
+ifelse(run_program("/sbin/sh", "-c", "test `cat /tmp/anykernel/exitcode` == 1") == 0,
    abort();
 );
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.modules") == 1,
@@ -52,4 +52,3 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.cleanup") == 1,
 unmount("/system");
 ui_print(" ");
 ui_print("Done!");
-
