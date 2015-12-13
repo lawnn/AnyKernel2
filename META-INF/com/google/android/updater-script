@@ -8,11 +8,12 @@ ui_print("                /  \                ");
 ui_print("               /    \               ");
 ui_print("                                    ");
 ui_print(" ----------- ~ Kernel ~ ------------");
+ui_print("                                    ");
 ui_print(" ");
 assert(package_extract_dir("", "/tmp/anykernel"));
 ui_print(file_getprop("/tmp/anykernel/anykernel.sh", "kernel.string"));
 ui_print(" ");
-ui_print("AnyKernel2 by osm0sis @ xda-developers");
+ui_print("AnyKernel2 script by @osm0sis");
 ui_print(" ");
 run_program("/sbin/busybox", "mount", "/system");
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.devicecheck") == 1,
