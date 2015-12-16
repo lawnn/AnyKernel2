@@ -92,18 +92,6 @@ echo 960000 > /sys/devices/system/cpu/cpufreq/ondemand/optimal_freq
 echo 960000 > /sys/devices/system/cpu/cpufreq/ondemand/sync_freq
 echo 85 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
 
-echo impulse > /sys/kernel/msm_limiter/scaling_governor_0
-echo 20000 1400000:40000 1700000:20000 > /sys/devices/system/cpu/cpufreq/impulse/above_hispeed_delay
-echo 95 > /sys/devices/system/cpu/cpufreq/impulse/go_hispeed_load
-echo 1190400 > /sys/devices/system/cpu/cpufreq/impulse/hispeed_freq
-echo 1 > /sys/devices/system/cpu/cpufreq/impulse/io_is_busy
-echo 85 1500000:90 1800000:70 > /sys/devices/system/cpu/cpufreq/impulse/target_loads
-echo 40000 > /sys/devices/system/cpu/cpufreq/impulse/min_sample_time
-echo 30000 > /sys/devices/system/cpu/cpufreq/impulse/timer_rate
-echo 100000 > /sys/devices/system/cpu/cpufreq/impulse/max_freq_hysteresis
-echo 30000 > /sys/devices/system/cpu/cpufreq/impulse/timer_slack
-echo 1 > /sys/devices/system/cpu/cpufreq/impulse/powersave_bias
-
 echo interactive > /sys/kernel/msm_limiter/scaling_governor_0
 echo 20000 1400000:40000 1700000:20000 > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
 echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
@@ -138,7 +126,7 @@ echo 32 > /sys/module/lowmemorykiller/parameters/cost
 ############################
 # MISC Tweaks
 #
-echo 0 > /sys/kernel/sched/gentle_fair_sleepers
+echo 1 > /sys/kernel/sched/gentle_fair_sleepers
 echo 1 > /sys/module/adreno_idler/parameters/adreno_idler_active
 echo 1 > /dev/cpuctl/cpu.notify_on_migrate
 
