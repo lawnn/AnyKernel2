@@ -4,5 +4,11 @@ service lambda-post-boot /system/bin/sh /sbin/lambda-post_boot.sh
     disabled
     oneshot
 
+service uci /sbin/uci
+    class main
+    user root
+    group root
+    oneshot
+
 on property:sys.boot_completed=1
     start lambda-post-boot

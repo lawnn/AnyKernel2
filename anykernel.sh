@@ -7,7 +7,7 @@
 kernel.string=Lambda Kernel Installer
 do.devicecheck=0 # Too many variants to check!
 do.initd=1
-do.modules=1
+do.modules=0
 do.cleanup=0
 device.name1=
 device.name2=
@@ -149,7 +149,8 @@ replace_file() {
 ## AnyKernel permissions
 # set permissions for included files
 chmod -R 755 $ramdisk-new
-#chmod 644 $ramdisk/sbin/media_profiles.xml
+chmod 644 $ramdisk-new/res/synapse/*
+chmod -R 755 $ramdisk-new/res/synapse/actions
 
 ## AnyKernel install
 dump_boot;
@@ -171,6 +172,7 @@ replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 # init.g2.rc
 backup_file init.g2.rc;
 append_file init.g2.rc "lambda-post_boot" init.g2.patch;
+append_file init.g2.rc "uci" init.g2.patch;
 
 # end ramdisk changes
 

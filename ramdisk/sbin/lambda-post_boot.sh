@@ -69,30 +69,10 @@ echo zen > /sys/block/mmcblk0/queue/scheduler
 echo 1024 > /sys/block/mmcblk0/bdi/read_ahead_kb
 
 ############################
-# Thermal
-#
-echo "0" > /sys/kernel/msm_thermal/enabled
-echo "1728000 55 50" > /sys/kernel/msm_thermal/low_thresh
-echo "1574400 61 56" > /sys/kernel/msm_thermal/mid_thresh
-echo "1267200 66 62" > /sys/kernel/msm_thermal/high_thresh
-echo "1" > /sys/kernel/msm_thermal/enabled
-
-############################
 # Governor Tunings
 #
-echo ondemand > /sys/kernel/msm_limiter/scaling_governor_0
-echo 95 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-echo 50000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-echo 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
-echo 4 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-echo 75 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_multi_core
-echo 3 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential_multi_core
-echo 960000 > /sys/devices/system/cpu/cpufreq/ondemand/optimal_freq
-echo 960000 > /sys/devices/system/cpu/cpufreq/ondemand/sync_freq
-echo 85 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
 
-echo interactive > /sys/kernel/msm_limiter/scaling_governor_0
+# Non-intrusive interactive tweaks
 echo 20000 1400000:40000 1700000:20000 > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
 echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
 echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
@@ -103,6 +83,7 @@ echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
 echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
 echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_slack
 
+# Intrusive smartmax tweaks
 echo smartmax > /sys/kernel/msm_limiter/scaling_governor_0
 echo smartmax > /sys/kernel/msm_limiter/scaling_governor_1
 echo smartmax > /sys/kernel/msm_limiter/scaling_governor_2
@@ -126,7 +107,7 @@ echo 32 > /sys/module/lowmemorykiller/parameters/cost
 ############################
 # MISC Tweaks
 #
-echo 1 > /sys/kernel/sched/gentle_fair_sleepers
+echo 0 > /sys/kernel/sched/gentle_fair_sleepers
 echo 1 > /sys/module/adreno_idler/parameters/adreno_idler_active
 echo 1 > /dev/cpuctl/cpu.notify_on_migrate
 
