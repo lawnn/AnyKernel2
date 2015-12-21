@@ -172,7 +172,7 @@ replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 # init.g2.rc
 backup_file init.g2.rc;
 append_file init.g2.rc "lambda-post_boot" init.g2.patch;
-append_file init.g2.rc "uci" init.g2.patch;
+append_file init.g2.rc "/sbin/uci" init.g2.patch;
 
 # end ramdisk changes
 
