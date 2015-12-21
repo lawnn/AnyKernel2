@@ -5,7 +5,7 @@
 # **************************************************************
 
 UKM=/data/UKM;
-BB=/sbin/bb/busybox;
+BB=$UKM/busybox;
 UCI_CONFIG=$UKM/config.json;
 DEBUG=$UKM/debug;
 UCI_FILE=$UKM/uci;

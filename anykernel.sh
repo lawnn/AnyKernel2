@@ -5,7 +5,7 @@
 ## AnyKernel setup
 # EDIFY properties
 kernel.string=Lambda Kernel Installer
-do.devicecheck=0
+do.devicecheck=1
 do.initd=1
 do.ukm=1
 do.addond=1
