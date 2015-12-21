@@ -1,9 +1,3 @@
-service uci /sbin/uci
-    class main
-    user root
-    group root
-    oneshot
-
 service lambda-post-boot /system/bin/sh /sbin/lambda-post_boot.sh
     class late_start
     user root

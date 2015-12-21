@@ -14,7 +14,9 @@ assert(package_extract_dir("", "/tmp/anykernel"));
 ui_print(file_getprop("/tmp/anykernel/anykernel.sh", "kernel.string"));
 ui_print(" ");
 ui_print("AnyKernel2 script by @osm0sis");
+ui_print("Enhanced by @GalaticStryder!");
 ui_print(" ");
+run_program("/sbin/busybox", "mount", "/data");
 run_program("/sbin/busybox", "mount", "/system");
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.devicecheck") == 1,
   (ui_print("Checking device...");
@@ -23,7 +25,8 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.devicecheck") == 1,
           getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name2") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name2") ||
           getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name3") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name3") ||
           getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name4") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name4") ||
-          getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name5") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name5"));
+          getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name4") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name5") ||
+          getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name5") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name6"));
   )
 );
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.initd") == 1,
@@ -33,11 +36,32 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.initd") == 1,
    set_perm_recursive(0, 0, 0755, 0755, "/system/etc/init.d");
   )
 );
+ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.addond") == 1,
+  (ui_print("Creating addon.d...");
+   ui_print(" ");
+   run_program("/sbin/sh", "-c", "mkdir /system/addon.d");
+   set_perm_recursive(0, 0, 0755, 0755, "/system/addon.d");
+  )
+);
 ui_print("Installing the kernel...");
 ui_print(" ");
 run_program("/sbin/sh", "/tmp/anykernel/anykernel.sh");
 ifelse(run_program("/sbin/sh", "-c", "test `cat /tmp/anykernel/exitcode` == 1") == 0,
    abort();
+);
+ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.ukm") == 1,
+  (ui_print("Installing UKM...");
+   ui_print(" ");
+   ui_print("Extracting UKM files...");
+   package_extract_file("data/UKM/uci", "/system/xbin/uci");
+   package_extract_file("data/UKM/UKM", "/system/etc/init.d/UKM");
+   package_extract_file("data/UKM/UKM.sh", "/system/addon.d/UKM.sh");
+   ui_print("Setting UKM permissions...");
+   set_perm_recursive(0, 0, 0755, 0755, "/data/UKM");
+   set_perm(0, 0, 0755, "/system/xbin/uci");
+   set_perm(0, 0, 0755, "/system/etc/init.d/UKM");
+   set_perm(0, 0, 0755, "/system/addon.d/UKM.sh");
+  )
 );
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.modules") == 1,
   (ui_print("Pushing modules...");
@@ -52,6 +76,7 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.cleanup") == 1,
 );
 ui_print("Cleanup...");
 delete("/system/etc/init.d/01mpdecision");
+unmount("/data");
 unmount("/system");
 ui_print(" ");
 ui_print("Enjoy your brand new kernel!");

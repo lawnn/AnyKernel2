@@ -5,15 +5,18 @@
 ## AnyKernel setup
 # EDIFY properties
 kernel.string=Lambda Kernel Installer
-do.devicecheck=0 # Too many variants to check!
+do.devicecheck=0
 do.initd=1
+do.ukm=1
+do.addond=1
 do.modules=0
-do.cleanup=0
-device.name1=
-device.name2=
-device.name3=
-device.name4=
-device.name5=
+do.cleanup=1
+device.name1=d800
+device.name2=d801
+device.name3=d802
+device.name4=d803
+device.name5=ls980
+device.name6=vs980
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
@@ -149,8 +152,6 @@ replace_file() {
 ## AnyKernel permissions
 # set permissions for included files
 chmod -R 755 $ramdisk-new
-chmod 644 $ramdisk-new/res/synapse/*
-chmod -R 755 $ramdisk-new/res/synapse/actions
 
 ## AnyKernel install
 dump_boot;
@@ -172,7 +173,6 @@ replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 # init.g2.rc
 backup_file init.g2.rc;
 append_file init.g2.rc "lambda-post_boot" init.g2.patch;
-append_file init.g2.rc "/sbin/uci" init.g2.patch;
 
 # end ramdisk changes
 
