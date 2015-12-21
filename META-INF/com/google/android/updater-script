@@ -46,7 +46,7 @@ ifelse(run_program("/sbin/sh", "-c", "test `cat /tmp/anykernel/exitcode` == 1") 
    abort();
 );
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.ukm") == 1,
-  (ui_print("Installing UKM...");
+  (ui_print("Deleting old UKM files...");
    delete_recursive("/data/N4UKM", "/data/UKM");
    delete("/system/etc/init.d/N4UKM", "/system/etc/init.d/UKM", "/system/etc/init.d/UKM_WAKE", "/system/xbin/uci", "/system/addon.d/UKM.sh");
    ui_print("Extracting UKM files...");
