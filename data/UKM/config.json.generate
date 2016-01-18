@@ -33,6 +33,7 @@ cat << CTAG
 			fi
 			if [ -d "/sys/kernel/sound_control_3" -o -d "/sys/class/misc/soundcontrol" ]; then
 				. $UKM/config.json.generate.sound
+      fi
 			$BB echo ','
 			. $UKM/config.json.generate.mem
 			$BB echo ','
