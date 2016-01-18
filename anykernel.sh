@@ -1,6 +1,7 @@
 # AnyKernel 2.0 Ramdisk Mod Script
 # osm0sis @ xda-developers
-# modified by RenderBroken for the G2!
+# modified by RenderBroken for the G2
+# enhanced as fuck by GalaticStryder!
 
 ## AnyKernel setup
 # EDIFY properties
@@ -23,7 +24,6 @@ block=/dev/block/platform/msm_sdcc.1/by-name/boot;
 initd=/system/etc/init.d;
 bindir=/system/bin;
 ## end setup
-
 
 ## AnyKernel methods (DO NOT CHANGE)
 # set up extracted files and directories
@@ -173,6 +173,21 @@ replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
 # init.g2.rc
 backup_file init.g2.rc;
 append_file init.g2.rc "lambda-post_boot" init.g2.patch;
+
+# add frandom compatibility
+backup_file ueventd.rc;
+insert_line ueventd.rc "frandom" after "urandom" "/dev/frandom              0666   root       root\n";
+insert_line ueventd.rc "erandom" after "urandom" "/dev/erandom              0666   root       root\n";
+
+backup_file file_contexts;
+insert_line file_contexts "frandom" after "urandom" "/dev/frandom		u:object_r:frandom_device:s0\n";
+insert_line file_contexts "erandom" after "urandom" "/dev/erandom               u:object_r:erandom_device:s0\n";
+
+# xprivacy service
+param=$(grep "xprivacy" service_contexts)
+if [ -z $param ]; then
+    echo -ne "xprivacy453                               u:object_r:system_server_service:s0\n" >> service_contexts
+fi
 
 # end ramdisk changes
 

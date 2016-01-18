@@ -362,12 +362,12 @@ cat << CTAG
 						}},'
 					fi
 					if [ -f "/sys/module/cpu_boost/parameters/input_boost_freq" ]; then
-					
+
 					VALUE=0; for i in \`$BB cat /sys/module/cpu_boost/parameters/input_boost_freq\`; do VALUE=$(($VALUE+1)); done;
-					
+
 						if [ $VALUE -eq 1 ]; then
 							IBF=\`$BB cat /sys/module/cpu_boost/parameters/input_boost_freq\`
-							
+
 							$BB echo '{ SSeekBar:{
 								title:"Input Boost Frequency",
 								description:"This will boost your minimum CPU speed to the selected frequency when you touch the screen or press a button.",
@@ -500,6 +500,18 @@ cat << CTAG
 							description:"This will help to reduce power consumption at the cost of slight performance overhead. PE workqueues are used for unbound scheduled work to save load on sibling CPU cores and queuing work on CPU0.",
 							default:'$PE',
 							action:"boolean /sys/module/workqueue/parameters/power_efficient",
+						}},'
+				fi`
+				`if [ -f "/sys/kernel/sched/arch_power" ]; then
+				APOWER=\`$BB cat /sys/kernel/sched/arch_power\`
+					$BB echo '{ SPane:{
+						title:"Arch Power"
+					}},
+						{ SCheckBox:{
+							label:"Enable",
+							description:"Arch Power uses arch dependent power functions to be used instead of generic high resolution timer ticks and double ticks to reflect the relative capacity of each core.",
+							default:'$APOWER',
+							action:"generic /sys/kernel/sched/arch_power"
 						}},'
 				fi`
 			{ SPane:{
@@ -712,8 +724,8 @@ cat << CTAG
 										SGeneric: { title:"@BASENAME" }
 									}
 								},
-								exclude: [ 
-									"boost_duration", "boostpulse", "cpu_utilization", "multi_phase_freq_tbl", "profile", "profile_list", "sampling_rate_min", 
+								exclude: [
+									"boost_duration", "boostpulse", "cpu_utilization", "multi_phase_freq_tbl", "profile", "profile_list", "sampling_rate_min",
 									"up_threshold_h", "up_threshold_l", "version_profiles"
 								]
 							},

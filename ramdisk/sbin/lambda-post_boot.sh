@@ -5,12 +5,13 @@ BB=/sbin/bb/busybox
 ############################
 # Custom Kernel Settings for Lambda Kernel!
 #
-echo "[Lambda-Kernel] Boot Script Started" | tee /dev/kmsg
+echo "[Lambda Kernel] Boot script started" | tee /dev/kmsg
 stop mpdecision
 
 ############################
 # MSM_Hotplug Settings
 #
+echo "[Lambda Kernel] Tunning MSM Hotplug values" | tee /dev/kmsg
 echo 1 > /sys/module/msm_hotplug/min_cpus_online
 echo 2 > /sys/module/msm_hotplug/cpus_boosted
 echo 500 > /sys/module/msm_hotplug/down_lock_duration
@@ -27,6 +28,7 @@ echo 652800 > /sys/kernel//msm_mpdecision/conf/idle_freq
 ############################
 # CPU-Boost Settings
 #
+echo "[Lambda Kernel] Setting boost parameters" | tee /dev/kmsg
 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
 echo 500 > /sys/module/cpu_boost/parameters/input_boost_ms
 echo 0:1497600 1:1497600 2:1497600 3:1497600 > /sys/module/cpu_boost/parameters/input_boost_freq
@@ -45,13 +47,14 @@ echo 10 > /proc/sys/vm/swappiness
 echo 50 > /proc/sys/vm/vfs_cache_pressure
 
 ############################
-# Power Effecient Workqueues (Enable for battery)
+# Power Effecient Workqueues
 #
 echo 1 > /sys/module/workqueue/parameters/power_efficient
 
 ############################
 # MSM Limiter
 #
+echo "[Lambda Kernel] Setting CPU clocks" | tee /dev/kmsg
 echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_0
 echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_1
 echo 300000 > /sys/kernel/msm_limiter/suspend_min_freq_2
@@ -65,14 +68,15 @@ echo 1190400 > /sys/kernel/msm_limiter/suspend_max_freq
 ############################
 # Scheduler and Read Ahead
 #
-echo zen > /sys/block/mmcblk0/queue/scheduler
-echo 1024 > /sys/block/mmcblk0/bdi/read_ahead_kb
+echo fiops > /sys/block/mmcblk0/queue/scheduler
+echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
 
 ############################
 # Governor Tunings
 #
 
 # Non-intrusive interactive tweaks
+echo "[Lambda Kernel] Tunning interactive governor" | tee /dev/kmsg
 echo 20000 1400000:40000 1700000:20000 > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
 echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
 echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
@@ -84,6 +88,7 @@ echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis
 echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_slack
 
 # Intrusive smartmax tweaks
+echo "[Lambda Kernel] Tunning smartmax governor" | tee /dev/kmsg
 echo smartmax > /sys/kernel/msm_limiter/scaling_governor_0
 echo smartmax > /sys/kernel/msm_limiter/scaling_governor_1
 echo smartmax > /sys/kernel/msm_limiter/scaling_governor_2
@@ -99,13 +104,14 @@ echo 1497600 > /sys/devices/system/cpu/cpufreq/smartmax/boost_freq
 ############################
 # LMK Tweaks
 #
+echo "[Lambda Kernel] Setting LMK values" | tee /dev/kmsg
 echo 1536,2048,4096,16384,28672,32768 > /sys/module/lowmemorykiller/parameters/minfree
 echo 32 > /sys/module/lowmemorykiller/parameters/cost
-#echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
-#echo 61952 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
+echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+echo 61952 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
 
 ############################
-# MISC Tweaks
+# Misc Tweaks
 #
 echo 0 > /sys/kernel/sched/gentle_fair_sleepers
 echo 1 > /sys/module/adreno_idler/parameters/adreno_idler_active
@@ -114,12 +120,12 @@ echo 1 > /dev/cpuctl/cpu.notify_on_migrate
 ############################
 # Disable Debugging
 #
+echo "[Lambda Kernel] Disabling debug mask" | tee /dev/kmsg
 echo "0" > /sys/module/kernel/parameters/initcall_debug;
 echo "0" > /sys/module/alarm_dev/parameters/debug_mask;
 echo "0" > /sys/module/binder/parameters/debug_mask;
 echo "0" > /sys/module/xt_qtaguid/parameters/debug_mask;
 echo "0" > /sys/module/lge_touch_core/parameters/debug_mask
-echo "[Lambda-Kernel] disable debug mask" | tee /dev/kmsg
 
 ############################
 # Init.d Support
@@ -165,4 +171,4 @@ pm enable com.google.android.gsf/.update.SystemUpdateService
 pm enable com.google.android.gsf/.update.SystemUpdateService$Receiver
 pm enable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver
 
-echo "[Lambda-Kernel] Boot Script Completed!" | tee /dev/kmsg
+echo "[Lambda Kernel] Boot script completed" | tee /dev/kmsg

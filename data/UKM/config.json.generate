@@ -34,11 +34,6 @@ cat << CTAG
 			if [ -d "/sys/kernel/sound_control_3" -o -d "/sys/class/misc/soundcontrol" ]; then
 				. $UKM/config.json.generate.sound
 			$BB echo ','
-			fi
-			if [ -d "/sys/bus/i2c/devices/0-0058" ]; then
-				. $UKM/config.json.generate.speaker
-			$BB echo ','
-			fi
 			. $UKM/config.json.generate.mem
 			$BB echo ','
 			. $UKM/config.json.generate.wake
