@@ -2,31 +2,6 @@ cat << CTAG
 {
 	name:TOOLS,
 		elements:[
-			`if [ "\`sh $DEVICE HasBootloader\`" == "1" ] && [ -e "\`sh $DEVICE DirKernelIMG\`" ]; then
-				$BB echo '{ STitleBar:{
-					title:"Bootloader Status"
-				}},
-					{ SLiveLabel:{
-						refresh:3000,
-						action:"live Bootloader"
-					}},
-					{ SDescription:{
-						description:"Use this button to lock/unlock your bootloader without fastboot and data wipe."
-					}},
-					{ SButton:{
-						label:"Toggle Bootloader Status",
-						action:"devtools bootloader"
-					}},'
-			fi`
-			`if [ "\`sh $DEVICE HasTamperFlag\`" == "1" ] && [ -e "\`sh $DEVICE DirKernelIMG\`" ]; then
-				$BB echo '{ SDescription:{
-					description:"The bootloader sets a tamper flag if it has ever been unlocked/altered. The button below allows you to change this state."
-				}},
-					{ SButton:{
-						label:"Toggle Tamper Flag",
-						action:"devtools tamper"
-					}},'
-			fi`
 			{ SPane:{
 				title:"SELinux Status",
 				description:"Allows you to change your SELinux (Security-Enhanced Linux) Status from Enforcing (policy is enforced) to Permissive (prints warnings instead of enforcing).",
@@ -55,7 +30,7 @@ cat << CTAG
 						default:0,
 						action:"sqlite PreferredNetworkMode",
 						values:{ 0:"WCDMA_preferred", 1:"GSM_only", 2:"WCDMA_only", 3:"GSM_auto", 4:"CDMA_auto", 5:"CDMA_only", 6:"EvDo_only",
-							7:"GSM_CDMA_auto", 8:"LTE_CDMA_auto", 9:"LTE_GSM_auto", 10:"LTE_GSM_CDMA_auto", 11:"LTE_only", 12:"LTE_WDCMA", 
+							7:"GSM_CDMA_auto", 8:"LTE_CDMA_auto", 9:"LTE_GSM_auto", 10:"LTE_GSM_CDMA_auto", 11:"LTE_only", 12:"LTE_WDCMA",
 							13:"TD-SCDMA_only", 14:"TD-SCDMA_WCDMA", 15:"TD-SCDMA_LTE", 16:"TD-SCDMA_GSM", 17:"TD-SCDMA_GSM_LTE", 18:"TD-SCDMA_GSM_WCDMA",
 							19:"TD-SCDMA_WCDMA_LTE", 20:"TD-SCDMA_GSM_WDCMA_LTE", 21:"TD-SCDMA_GSM_WCDMA_CDMA_EvDo", 22:"TD-SCDMA_LTE_CDMA_EvDo_GSM_WCDMA"
 						},
@@ -196,10 +171,6 @@ cat << CTAG
 					label:"Reboot to Recovery",
 					action:"devtools reboot recovery"
 				}},
-				{ SButton:{
-					label:"Reboot to Bootloader",
-					action:"devtools reboot bootloader"
-				}}
 		]
 }
 CTAG
