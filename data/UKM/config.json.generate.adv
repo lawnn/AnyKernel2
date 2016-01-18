@@ -200,6 +200,15 @@ cat << CTAG
 						unit:"MB", min:1, max:300 }},'
 					done
 			fi`
+			`if [ -f "/sys/module/lowmemorykiller/parameters/enable_adaptive_lmk" ]; then
+				AUTO=\`$BB cat /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk\`
+					$BB echo '{ SCheckBox:{
+						label:"Adaptive LMK",
+						description:"The basic idea here is to make LMK more aggressive dynamically when such a thrashing scenario is detected. To detect thrashing, this patch uses vmpressure events. The values of vmpressure upon which an action has to be taken, was derived empirically.",
+						default:'$AUTO',
+						action:"generic /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk"
+					}},
+			fi`
 		]
 }
 CTAG
