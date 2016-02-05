@@ -16,8 +16,9 @@ device.name1=d800
 device.name2=d801
 device.name3=d802
 device.name4=d803
-device.name5=ls980
-device.name6=vs980
+device.name5=l01f
+device.name6=ls980
+device.name7=vs980
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
