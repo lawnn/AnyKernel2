@@ -15,7 +15,7 @@ device.name4=
 device.name5=
 
 # shell variables
-block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;
+block=/dev/block/platform/msm_sdcc.1/by-name/boot;
 
 ## end setup
 
