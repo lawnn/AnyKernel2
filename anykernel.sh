@@ -227,6 +227,11 @@ else
   insert_line init.rc "init.superuser.rc" after "on post-fs-data" "    import /init.superuser.rc";
 fi;
 
+# Felica
+insert_line init.qcom.rc "import init.carrier.rc" after "import init.qcom.power.rc" "import init.carrier.rc";
+backup_file ueventd.qcom.rc;
+append_file ueventd.qcom.rc "# Felica" ueventd.qcom.patch;
+
 # end ramdisk changes
 
 write_boot;
