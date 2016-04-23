@@ -221,6 +221,7 @@ dump_boot;
 backup_file default.prop;
 replace_string default.prop "ro.adb.secure=0" "ro.adb.secure=1" "ro.adb.secure=0";
 replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
+replace_string default.prop "persist.sys.usb.config=adb" "persist.sys.usb.config=none" "persist.sys.usb.config=adb";
 
 # init.superuser.rc
 if [ -f init.superuser.rc ]; then
