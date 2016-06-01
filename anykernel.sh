@@ -10,9 +10,9 @@ do.modules=0
 do.cleanup=1
 device.name1=js01lte
 device.name2=SC02F
-device.name3=
-device.name4=
-device.name5=
+device.name3=hltedcm
+device.name4=hltekdi
+device.name5=hlte
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;
